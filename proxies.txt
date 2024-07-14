@@ -1,0 +1,4 @@
+user:pass@ip:port
+socks5://user:pass@ip:port
+http://user:pass@ip:port
+...
