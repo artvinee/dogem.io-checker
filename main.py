@@ -39,6 +39,10 @@ async def send_request(wallet, proxy):
         "wallet": wallet
     }
 
+    header = {
+        "Referer": "https://dogem.io/?ref=0x9eBC92adB03Eaee05d90de9eab4C4ae820bB04bD"  # dont remove pls
+    }
+    
     if USE_PROXY:
         if not proxy.startswith(('http://', 'https://', 'socks5://')):
             proxy = f"{TYPE_PROXY}://{proxy}"
@@ -58,7 +62,7 @@ async def send_request(wallet, proxy):
 
     try:
         async with aiohttp.ClientSession(connector=connector) as session:
-            async with session.post(url, data=payload, proxy=proxy_for_request, timeout=30) as response:
+            async with session.post(url, data=payload, proxy=proxy_for_request, timeout=30, headers=header) as response:
                 if response.status == 200:
                     r = await response.json()
                     if r['status'] == "eligible":
